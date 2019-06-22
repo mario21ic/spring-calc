@@ -1,0 +1,12 @@
+version: '2.3'
+
+services:
+
+  calc:
+    image: mario21ic/spring-calc:v1.0
+    build: ./
+    volumes:
+      - ./:/app/
+    ports:
+      - 8080:8080
+
