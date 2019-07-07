@@ -1,0 +1,46 @@
+pipeline {
+  agent any
+
+  parameters {
+    booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Upload to Docker hub')
+  }
+
+  options {
+      timestamps()
+      timeout(time: 15, unit: "MINUTES")
+  }
+  
+  environment {
+    ARTIFACT = "${env.WORKSPACE}/build/libs/gs-rest-service-0.1.0.jar"
+  }
+
+
+  stages {
+
+    stage("Repository") {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build') {
+      steps {
+          sh "./build.sh"
+      }
+    }
+
+    stage ('Test') {
+      steps {
+        sh "./run_test.h"
+      }
+    }
+
+    stage ('Image') {
+      steps {
+        sh "./docker_build.sh"
+        archiveArtifacts artifacts: "${env.ARTIFACT}", onlyIfSuccessful: true
+        sh "rm -f ${ARTIFACT}"
+      }
+    }
+  }
+}
