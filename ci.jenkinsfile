@@ -11,7 +11,7 @@ pipeline {
   }
   
   environment {
-    ARTIFACT = "${env.WORKSPACE}/build/libs/gs-rest-service-0.1.0.jar"
+    ARTIFACT = "build/libs/gs-rest-service-0.1.0.jar"
   }
 
 
