@@ -3,8 +3,16 @@ FROM openjdk:8-jdk as compiler
 RUN mkdir /app/
 WORKDIR /app
 
+# Copiar todo el code
 COPY ./ /app/
+
+# Descargar gradle
 RUN /app/gradlew
+
+# Run Tests
+#RUN /app/gradlew test
+
+# Generar jar
 RUN /app/gradlew bootJar
 
 
