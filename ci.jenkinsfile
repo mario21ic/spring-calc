@@ -42,5 +42,11 @@ pipeline {
         sh "rm -f ${ARTIFACT}"
       }
     }
+
+    stage ('Test Image') {
+      steps {
+        sh "./docker_test.sh ${env.BUILD_NUMBER}"
+      }
+    }
   }
 }
